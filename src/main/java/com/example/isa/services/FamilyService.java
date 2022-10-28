@@ -5,29 +5,35 @@ import com.example.isa.repositories.FamilyRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FamilyService {
 
-    private final FamilyRepository FamilyRepository;
+    private final FamilyRepository familyRepository;
 
-    public FamilyService(FamilyRepository FamilyRepository) {
-        this.FamilyRepository = FamilyRepository;
+    public FamilyService(FamilyRepository familyRepository) {
+        this.familyRepository = familyRepository;
     }
 
-    public void save(Family Family){
-        FamilyRepository.save(Family);
+    public void save(Family family){
+        familyRepository.save(family);
     }
 
-    public Family find(long ID){
-        return FamilyRepository.find(ID);
+    public Optional<Family> findById(Long id){
+        return familyRepository.findById(id);
     }
 
     public List<Family> findAll(){
-        return FamilyRepository.findAll();
+        return familyRepository.findAll();
     }
 
-    public void delete(Family Family){
-        FamilyRepository.delete(Family);
+    public void delete(Family family){
+        familyRepository.delete(family);
     }
+
+    public void update(Family family) {
+        save(family);
+    }
+
 }

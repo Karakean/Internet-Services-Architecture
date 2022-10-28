@@ -1,25 +1,33 @@
 package com.example.isa.entity;
 
+import lombok.*;
+
+import javax.persistence.*;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "species")
 public class Species {
-    private final long ID;
-    private final String name;
-    private final Family family;
+    @Id
+    @Getter
+    @Setter
+    private Long id;
 
-    private final boolean isHallucinogenic;
+    @Column(unique = true)
+    private String name;
 
-    public Species(long ID, String name, Family family, boolean isHallucinogenic) {
-        this.name = name;
-        this.ID = ID;
-        this.family = family;
-        this.isHallucinogenic = isHallucinogenic;
-    }
+    private boolean hallucinogenic;
 
-    public long getID() {
-        return ID;
-    }
+    @ManyToOne
+    @JoinColumn(name = "family")
+    private Family family;
 
     @Override
     public String toString() {
-        return "ID: " + ID + "   NAME: " + name + "   FAMILY: {" + family + "}   IS HALLUCINOGENIC: " + isHallucinogenic;
+        return "ID: " + id + "   NAME: " + name + "   FAMILY: {" + family + "}   IS HALLUCINOGENIC: " + hallucinogenic;
     }
 }

@@ -1,10 +1,12 @@
 package com.example.isa.services;
 
+import com.example.isa.entity.Family;
 import com.example.isa.entity.Species;
 import com.example.isa.repositories.SpeciesRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SpeciesService {
@@ -18,8 +20,8 @@ public class SpeciesService {
         speciesRepository.save(Species);
     }
 
-    public Species find(long ID){
-        return speciesRepository.find(ID);
+    public Optional<Species> findById(Long ID){
+        return speciesRepository.findById(ID);
     }
 
     public List<Species> findAll(){
@@ -28,5 +30,14 @@ public class SpeciesService {
 
     public void delete(Species species){
         speciesRepository.delete(species);
+    }
+
+    public void deleteByFamily(Family family) {
+        for(Species s : family.getSpecies()){
+            delete(s);
+        }
+    }
+    public void update(Species updatedSpecies) {
+        save(updatedSpecies);
     }
 }

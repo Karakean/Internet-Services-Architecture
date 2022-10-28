@@ -12,7 +12,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-@Component
+//@Component
 public class Runner implements CommandLineRunner {
     FamilyService familyService;
     SpeciesService speciesService;
@@ -52,8 +52,8 @@ public class Runner implements CommandLineRunner {
     }
 
     public void saveSpeciesView(BufferedReader reader) throws IOException {
-        long ID = 1; //an existing ID
-        while(speciesService.find(ID) != null){
+        long ID = 1L; //an existing ID
+        while(speciesService.findById(ID) != null){
             System.out.println("Type a valid ID:");
             ID = Long.parseLong(reader.readLine());
         }
@@ -61,37 +61,36 @@ public class Runner implements CommandLineRunner {
         String name = reader.readLine();
         Family chosenFamily;
         while (true) {
-            System.out.println("Choose a family key: ");
+            System.out.println("Choose a family ID: ");
             familyService.findAll().forEach(System.out::println);
             String input = reader.readLine();
-            chosenFamily = familyService.find(Long.parseLong(input));
+            chosenFamily = familyService.findById(Long.parseLong(input)).orElse(null);
             if (chosenFamily != null ) {
                 break;
             }
-            System.out.println("It's not a valid family key.");
+            System.out.println("It's not a valid family ID.");
         }
         System.out.println("Is it hallucinogenic? Type \"yes\" or \"no\"");
-        int answerState = -1;
-        while(answerState == -1) {
+        int answer = -1;
+        while(answer == -1) {
             switch (reader.readLine().toLowerCase()) {
-                case "yes" -> answerState = 1;
-                case "no" -> answerState = 0;
+                case "yes" -> answer = 1;
+                case "no" -> answer = 0;
                 default -> System.out.println("It's not a valid answer");
             }
         }
-        speciesService.save(new Species(ID, name, chosenFamily, (answerState == 1)));
+        speciesService.save(new Species(ID, name, (answer == 1), chosenFamily));
         System.out.println("The species added successfully.");
-        return;
     }
     public void deleteSpeciesView(BufferedReader reader) throws IOException {
         System.out.println("Select species that you would like to delete:");
         speciesService.findAll().forEach(System.out::println);
         String input = reader.readLine();
-        while(speciesService.find(Long.parseLong(input)) == null){
-            System.out.println("There is no species with such key. Please choose a valid key.");
+        while(speciesService.findById(Long.parseLong(input)) == null){
+            System.out.println("There is no species with such ID. Please choose a valid ID.");
             input = reader.readLine();
         }
-        speciesService.delete(speciesService.find(Long.parseLong(input)));
+        speciesService.delete(speciesService.findById(Long.parseLong(input)).orElseThrow());
         System.out.println("The species deleted successfully.");
     }
 }

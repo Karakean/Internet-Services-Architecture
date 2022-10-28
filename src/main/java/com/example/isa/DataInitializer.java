@@ -27,7 +27,7 @@ public class DataInitializer {
         familyService.save(new Family(3L, "Boletaceae", 1826));
         familyService.save(new Family(4L, "Cantharellaceae", 1888));
         familyService.save(new Family(5L, "Russulaceae", 1907));
-        speciesService.save(new Species(1L, "Amanita phalloides", familyService.find(2L), true));
-        speciesService.save(new Species(2L, "Boletus edulis", familyService.find(3L), false));
+        speciesService.save(new Species(1L, "Amanita phalloides", true, familyService.findById(2L).orElseThrow()));
+        speciesService.save(new Species(2L, "Boletus edulis", false, familyService.findById(3L).orElseThrow()));
     }
 }

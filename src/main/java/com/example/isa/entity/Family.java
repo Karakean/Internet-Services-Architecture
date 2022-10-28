@@ -1,23 +1,41 @@
 package com.example.isa.entity;
 
+import lombok.*;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "families")
 public class Family {
-    private final long ID;
-    private final String name;
+    @Id
+    @Getter
+    @Setter
+    private Long id;
 
-    private final int classificationYear;
+    @Column(unique = true)
+    private String name;
 
-    public Family(long ID, String name, int classificationYear) {
-        this.ID = ID;
+    @Column(name = "classification_year")
+    private int classificationYear;
+
+    @OneToMany(mappedBy = "family")
+    @Getter
+    private List<Species> species;
+
+    public Family(Long id, String name, int classificationYear) {
+        this.id = id;
         this.name = name;
         this.classificationYear = classificationYear;
     }
 
-    public long getID() {
-        return ID;
-    }
-
     @Override
     public String toString() {
-        return "ID: " + ID + "   NAME: " + name + "   CLASSIFICATION YEAR: " + classificationYear;
+        return "ID: " + id + "   NAME: " + name + "   CLASSIFICATION YEAR: " + classificationYear;
     }
 }
