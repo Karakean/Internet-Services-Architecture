@@ -46,7 +46,7 @@ public class FamilySpeciesController {
         Optional<Family> familyPresence = familyService.findById(id);
         if (familyPresence.isPresent()) {
             Species species = CreateSpecies
-                    .dtoToEntityMapper(x -> familyService.findById(Long.valueOf(x)).orElseThrow())
+                    .dtoToEntityMapper(x -> familyService.findById(x).orElseThrow())
                     .apply(request);
             speciesService.save(species);
             return ResponseEntity.created(builder.pathSegment("api", "families", "{family}", "species", "{id}")

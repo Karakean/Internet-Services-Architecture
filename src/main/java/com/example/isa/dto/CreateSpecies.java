@@ -19,12 +19,12 @@ public class CreateSpecies {
     private boolean hallucinogenic;
     private Family family;
 
-    public static Function<CreateSpecies, Species> dtoToEntityMapper(Function<String, Family> familyFunction) {
+    public static Function<CreateSpecies, Species> dtoToEntityMapper(Function<Long, Family> familyFunction) {
             return speciesDto -> Species.builder()
                     .id(speciesDto.getId())
                     .name(speciesDto.getName())
                     .hallucinogenic(speciesDto.isHallucinogenic())
-                    .family(familyFunction.apply(speciesDto.getFamily().getName()))
+                    .family(familyFunction.apply(speciesDto.getFamily().getId()))
                     .build();
         }
 }

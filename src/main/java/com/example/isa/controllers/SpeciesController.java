@@ -43,7 +43,7 @@ public class SpeciesController {
     @PostMapping
     public ResponseEntity<Void> createSpeciesResponseEntity(@RequestBody CreateSpecies request, UriComponentsBuilder builder) {
         Species species = CreateSpecies
-                .dtoToEntityMapper(x -> familyService.findById(Long.valueOf(x)).orElseThrow())
+                .dtoToEntityMapper(x -> familyService.findById(x).orElseThrow())
                 .apply(request);
         speciesService.save(species);
         return ResponseEntity.created(builder.pathSegment("api", "species", "{id}")
