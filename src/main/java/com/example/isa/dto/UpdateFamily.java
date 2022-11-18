@@ -1,10 +1,8 @@
 package com.example.isa.dto;
 
 import com.example.isa.entity.Family;
-import com.example.isa.entity.Species;
 import lombok.*;
 
-import java.util.List;
 import java.util.function.BiFunction;
 
 @Getter

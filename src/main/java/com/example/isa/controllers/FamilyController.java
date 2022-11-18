@@ -6,7 +6,6 @@ import com.example.isa.dto.ReadFamily;
 import com.example.isa.dto.UpdateFamily;
 import com.example.isa.entity.Family;
 import com.example.isa.services.FamilyService;
-import com.example.isa.services.SpeciesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,12 +21,10 @@ import java.util.function.Function;
 @RestController
 @RequestMapping("api/families")
 public class FamilyController {
-    private final SpeciesService speciesService;
     private final FamilyService familyService;
 
     @Autowired
-    public FamilyController(SpeciesService speciesService, FamilyService familyService) {
-        this.speciesService = speciesService;
+    public FamilyController(FamilyService familyService) {
         this.familyService = familyService;
     }
 
@@ -49,7 +46,7 @@ public class FamilyController {
     @PostMapping
     public ResponseEntity<Void> createFamilyResponseEntity(@RequestBody CreateFamily request, UriComponentsBuilder builder) {
         Family family = CreateFamily.dtoToEntityMapper().apply(request);
-        familyService.save(family);
+        familyService.create(family);
         return ResponseEntity.created(builder.pathSegment("api", "categories", "{name}").buildAndExpand(family.getName()).toUri()).build();
     }
 
@@ -58,7 +55,6 @@ public class FamilyController {
     public ResponseEntity<Void> deleteFamilyResponseEntity(@PathVariable("id") Long id) {
         Optional<Family> familyOptional = familyService.findById(id);
         if (familyOptional.isPresent()) {
-            speciesService.deleteByFamily(familyOptional.get());
             familyService.delete(familyOptional.get());
             return ResponseEntity.accepted().build();
         } else {

@@ -2,8 +2,10 @@ package com.example.isa.entity;
 
 import lombok.*;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Getter
 @Setter
@@ -23,16 +25,6 @@ public class Family {
 
     @Column(name = "classification_year")
     private int classificationYear;
-
-    @OneToMany(mappedBy = "family")
-    @Getter
-    private List<Species> species;
-
-    public Family(Long id, String name, int classificationYear) {
-        this.id = id;
-        this.name = name;
-        this.classificationYear = classificationYear;
-    }
 
     @Override
     public String toString() {
