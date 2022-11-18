@@ -28,6 +28,10 @@ public class SpeciesService {
         return speciesRepository.findAll();
     }
 
+    public List<Species> findAllByFamily(Family family) {
+        return speciesRepository.findAllByFamily(family);
+    }
+
     public void delete(Species species){
         speciesRepository.delete(species);
     }

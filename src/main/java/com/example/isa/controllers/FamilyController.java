@@ -50,7 +50,7 @@ public class FamilyController {
     public ResponseEntity<Void> createFamilyResponseEntity(@RequestBody CreateFamily request, UriComponentsBuilder builder) {
         Family family = CreateFamily.dtoToEntityMapper().apply(request);
         familyService.save(family);
-        return ResponseEntity.created(builder.pathSegment("api", "categories", "{name}").buildAndExpand(family.getName()).toUri()).build();
+        return ResponseEntity.created(builder.pathSegment("api", "families", "{id}").buildAndExpand(family.getId()).toUri()).build();
     }
 
     @Transactional

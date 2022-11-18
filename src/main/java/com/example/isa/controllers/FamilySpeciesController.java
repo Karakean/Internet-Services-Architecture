@@ -1,6 +1,7 @@
 package com.example.isa.controllers;
 
 import com.example.isa.dto.*;
+import com.example.isa.entity.Family;
 import com.example.isa.entity.Species;
 import com.example.isa.services.FamilyService;
 import com.example.isa.services.SpeciesService;
@@ -10,44 +11,50 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/api/species")
-public class SpeciesController {
+@RequestMapping("/api/families/{family}/species")
+public class FamilySpeciesController {
     private final SpeciesService speciesService;
     private final FamilyService familyService;
 
     @Autowired
-    public SpeciesController(SpeciesService speciesService, FamilyService familyService) {
+    public FamilySpeciesController(SpeciesService speciesService, FamilyService familyService) {
         this.speciesService = speciesService;
         this.familyService = familyService;
     }
 
     @GetMapping
-    public ResponseEntity<ReadAllSpecies> readAllSpeciesResponseEntity() {
-        List<Species> all = speciesService.findAll();
-        ReadAllSpecies response = ReadAllSpecies.entityToDtoMapper().apply(all);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<ReadAllSpecies> readAllSpeciesResponseEntity(@PathVariable("family") Long id) {
+        return familyService.findById(id)
+                .map(value -> ResponseEntity.ok(ReadAllSpecies.entityToDtoMapper().apply(speciesService.findAllByFamily(value))))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ReadSpecies> readSpeciesResponseEntity(@PathVariable("id") Long id){
-        return speciesService.findById(id)
+    public ResponseEntity<ReadSpecies> readSpeciesResponseEntity(@PathVariable("id") Long speciesId){
+        return speciesService.findById(speciesId)
                 .map(value -> ResponseEntity.ok(ReadSpecies.entityToDtoMapper().apply(value)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Void> createSpeciesResponseEntity(@RequestBody CreateSpecies request, UriComponentsBuilder builder) {
-        Species species = CreateSpecies
-                .dtoToEntityMapper(x -> familyService.findById(Long.valueOf(x)).orElseThrow())
-                .apply(request);
-        speciesService.save(species);
-        return ResponseEntity.created(builder.pathSegment("api", "species", "{id}")
-                .buildAndExpand(species.getId()).toUri()).build();
+    public ResponseEntity<Void> createSpeciesResponseEntity(@PathVariable("family") Long id,
+                                                            @RequestBody CreateSpecies request, UriComponentsBuilder builder) {
+        Optional<Family> familyPresence = familyService.findById(id);
+        if (familyPresence.isPresent()) {
+            Species species = CreateSpecies
+                    .dtoToEntityMapper(x -> familyService.findById(Long.valueOf(x)).orElseThrow())
+                    .apply(request);
+            speciesService.save(species);
+            return ResponseEntity.created(builder.pathSegment("api", "families", "{family}", "species", "{id}")
+                    .buildAndExpand(species.getId()).toUri()).build();
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @Transactional

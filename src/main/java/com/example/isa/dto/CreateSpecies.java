@@ -5,7 +5,6 @@ import com.example.isa.entity.Species;
 import lombok.*;
 
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 @Getter
 @Setter
@@ -20,14 +19,12 @@ public class CreateSpecies {
     private boolean hallucinogenic;
     private Family family;
 
-    public static Function<CreateSpecies, Species> dtoToEntityMapper(
-        Function<String, Family> familyFunction,
-        Supplier<Species> speciesSupplier) {
+    public static Function<CreateSpecies, Species> dtoToEntityMapper(Function<String, Family> familyFunction) {
             return speciesDto -> Species.builder()
                     .id(speciesDto.getId())
                     .name(speciesDto.getName())
                     .hallucinogenic(speciesDto.isHallucinogenic())
-                    .family(speciesDto.getFamily())
+                    .family(familyFunction.apply(speciesDto.getFamily().getName()))
                     .build();
         }
 }
