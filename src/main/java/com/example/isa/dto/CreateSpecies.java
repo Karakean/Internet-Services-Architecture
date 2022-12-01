@@ -17,14 +17,14 @@ public class CreateSpecies {
     private Long id;
     private String name;
     private boolean hallucinogenic;
-    private Family family;
+    private Long familyId;
 
     public static Function<CreateSpecies, Species> dtoToEntityMapper(Function<Long, Family> familyFunction) {
             return speciesDto -> Species.builder()
                     .id(speciesDto.getId())
                     .name(speciesDto.getName())
                     .hallucinogenic(speciesDto.isHallucinogenic())
-                    .family(familyFunction.apply(speciesDto.getFamily().getId()))
+                    .family(familyFunction.apply(speciesDto.familyId))
                     .build();
         }
 }
