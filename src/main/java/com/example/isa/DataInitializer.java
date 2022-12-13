@@ -18,10 +18,10 @@ public class DataInitializer {
 
     @PostConstruct
     public void init(){
-        familyService.create(new Family(1L, "Agaricaceae", 1826));
-        familyService.create(new Family(2L, "Amanitaceae", 1940));
-        familyService.create(new Family(3L, "Boletaceae", 1826));
-        familyService.create(new Family(4L, "Cantharellaceae", 1888));
-        familyService.create(new Family(5L, "Russulaceae", 1907));
+        familyService.create(new Family("Agaricaceae", 1826));
+        familyService.create(new Family("Amanitaceae", 1940));
+        familyService.create(new Family("Boletaceae", 1826));
+        familyService.create(new Family("Cantharellaceae", 1888));
+        familyService.create(new Family("Russulaceae", 1907));
     }
 }

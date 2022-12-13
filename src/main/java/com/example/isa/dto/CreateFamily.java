@@ -14,13 +14,11 @@ import java.util.function.Supplier;
 @ToString
 @EqualsAndHashCode
 public class CreateFamily {
-    private Long id;
     private String name;
     private int classificationYear;
 
     public static Function<CreateFamily, Family> dtoToEntityMapper() {
         return familyDto -> Family.builder()
-                .id(familyDto.getId())
                 .name(familyDto.getName())
                 .classificationYear(familyDto.getClassificationYear())
                 .build();

@@ -2,22 +2,19 @@ package com.example.isa.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "families")
 public class Family {
     @Id
     @Getter
-    @Setter
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
@@ -25,6 +22,11 @@ public class Family {
 
     @Column(name = "classification_year")
     private int classificationYear;
+
+    public Family(String name, int classificationYear){
+        this.name = name;
+        this.classificationYear = classificationYear;
+    }
 
     @Override
     public String toString() {
