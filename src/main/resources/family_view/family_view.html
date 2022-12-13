@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="description" content="Just a web application about mushrooms."/>
+        <title>Mushrooms - my love</title>
+        <link rel="stylesheet" href="../styles.css"/>
+        <script type="module" src="family_view.js" defer="defer"></script>
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <h1>Mushrooms - my love</h1>
+            </header>
+
+            <nav class="navigation-bar">
+                <ul>
+                    <li><a href="../index.html">main</a></li>
+                    <li><a href="../family_list/family_list.html">mushroom families</a></li>
+					<li><a href="../species_list/species_list.html">mushroom species</a></li>
+                </ul>
+            </nav>
+
+            <section class="main-section">
+				<article class="text--justified">
+                    <header><h2 id="family">family</h2></header>
+                    <section>
+                        <h3>Details</h3>
+                        <div class="details-grid">
+                            <label for="id">ID:</label><span id="id">id</span>
+                            <label for="name">Name:</label><span id="name">name</span>
+                            <label for="classificationYear">Classification year:</label><span id="classificationYear">classificationYear</span>
+                        </div>
+                    </section>
+                    <section>
+                        <h3>Species</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>name</th>
+                                    <th>add</th>
+                                    <th>edit</th>
+                                    <th>delete</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <tr>
+                                    <td>name</td>
+                                    
+                                    <td><a href="#">view</a></td>
+                                    <td><a href="#">edit</a></td>
+                                    <td>
+                                        <button class="ui-button ui-control">delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tr>
+                                <td><a href="../species_add/species_add.html">add new species</a></td>
+                            </tr>
+                        </table>
+                    </section>
+
+                </article>
+
+            </section>
+
+            <footer class="footer">
+                <p>I freakin love mushrooms</p>
+            </footer>
+        </div>
+    </body>
+</html>
