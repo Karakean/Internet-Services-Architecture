@@ -15,11 +15,13 @@ import java.util.function.Function;
 public class ReadFamily {
     private Long id;
     private String name;
+    private int classificationYear;
 
     public static Function<Family, ReadFamily> entityToDtoMapper() {
         return family -> ReadFamily.builder()
                 .id(family.getId())
                 .name(family.getName())
+                .classificationYear(family.getClassificationYear())
                 .build();
     }
 

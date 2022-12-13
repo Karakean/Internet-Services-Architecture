@@ -14,14 +14,12 @@ import java.util.function.Function;
 @ToString
 @EqualsAndHashCode
 public class CreateSpecies {
-    private Long id;
     private String name;
     private boolean hallucinogenic;
     private Long familyId;
 
     public static Function<CreateSpecies, Species> dtoToEntityMapper(Function<Long, Family> familyFunction) {
             return speciesDto -> Species.builder()
-                    .id(speciesDto.getId())
                     .name(speciesDto.getName())
                     .hallucinogenic(speciesDto.isHallucinogenic())
                     .family(familyFunction.apply(speciesDto.familyId))

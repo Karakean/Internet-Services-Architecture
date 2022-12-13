@@ -8,17 +8,18 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "families")
 public class Family {
     @Id
     @Getter
-    @Setter
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
+    @Getter
     private String name;
 
     @Column(name = "classification_year")
@@ -28,8 +29,7 @@ public class Family {
     @Getter
     private List<Species> species;
 
-    public Family(Long id, String name, int classificationYear) {
-        this.id = id;
+    public Family(String name, int classificationYear){
         this.name = name;
         this.classificationYear = classificationYear;
     }

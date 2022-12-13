@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Species {
     @Id
     @Getter
-    @Setter
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
@@ -25,6 +25,12 @@ public class Species {
     @ManyToOne
     @JoinColumn(name = "family")
     private Family family;
+
+    public Species(String name, boolean hallucinogenic, Family family){
+        this.name = name;
+        this.hallucinogenic = hallucinogenic;
+        this.family = family;
+    }
 
     @Override
     public String toString() {

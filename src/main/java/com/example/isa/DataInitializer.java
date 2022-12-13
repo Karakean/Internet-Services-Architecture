@@ -22,12 +22,12 @@ public class DataInitializer {
 
     @PostConstruct
     public void init(){
-        familyService.save(new Family(1L, "Agaricaceae", 1826));
-        familyService.save(new Family(2L, "Amanitaceae", 1940));
-        familyService.save(new Family(3L, "Boletaceae", 1826));
-        familyService.save(new Family(4L, "Cantharellaceae", 1888));
-        familyService.save(new Family(5L, "Russulaceae", 1907));
-        speciesService.save(new Species(1L, "Amanita phalloides", true, familyService.findById(2L).orElseThrow()));
-        speciesService.save(new Species(2L, "Boletus edulis", false, familyService.findById(3L).orElseThrow()));
+        familyService.save(new Family( "Agaricaceae", 1826));
+        familyService.save(new Family( "Amanitaceae", 1940));
+        familyService.save(new Family( "Boletaceae", 1826));
+        familyService.save(new Family( "Cantharellaceae", 1888));
+        familyService.save(new Family( "Russulaceae", 1907));
+        speciesService.save(new Species( "Amanita phalloides", true, familyService.findById(2L).orElseThrow()));
+        speciesService.save(new Species( "Boletus edulis", false, familyService.findById(3L).orElseThrow()));
     }
 }
