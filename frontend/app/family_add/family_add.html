@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="description" content="Just a web application about mushrooms."/>
+        <title>Mushrooms - my love</title>
+        <link rel="stylesheet" href="../styles.css"/>
+        <script type="module" src="family_add.js" defer="defer"></script>
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <h1>Mushrooms - my love</h1>
+            </header>
+
+            <nav class="navigation-bar">
+                <ul>
+                    <li><a href="../index.html">main</a></li>
+                    <li><a href="../family_list/family_list.html">mushroom families</a></li>
+					<li><a href="../species_list/species_list.html">mushroom species</a></li>
+                </ul>
+            </nav>
+
+            <section class="main-section">
+				<article class="text--justified">
+                    <header><h2>Add family info</h2></header>
+                    <form class="family__form" id="infoForm">
+                        <label for="name">Name:</label>
+                        <input class="ui-control ui-input" id="name" name="name"/>
+                        <label for="classificationYear">Classification year:</label>
+                        <input class="ui-control ui-input" id="classificationYear" name="classificationYear" type="number"/>
+                        <input class="ui-control ui-button" type="submit" name="Add"/>
+                    </form>
+                </article>
+            </section>
+
+            <footer class="footer">
+                <p>I freakin love mushrooms</p>
+            </footer>
+        </div>
+    </body>
+</html>

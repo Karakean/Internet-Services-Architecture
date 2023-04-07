@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="description" content="Just a web application about mushrooms."/>
+        <title>Mushrooms - my love</title>
+        <link rel="stylesheet" href="../styles.css"/>
+        <script type="module" src="family_list.js" defer="defer"></script>
+    </head>
+    <body>
+        <div class="container">
+            <header class="header">
+                <h1>Mushrooms - my love</h1>
+            </header>
+
+            <nav class="navigation-bar">
+                <ul>
+                    <li><a href="../index.html">main</a></li>
+                    <li><a href="family_list.html">mushroom families</a></li>
+					<li><a href="../species_list/species_list.html">mushroom species</a></li>
+                </ul>
+            </nav>
+
+            <section class="main-section">
+				<article class="text--justified">
+                    <header><h2>Families</h2></header>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>name</th>
+                                <th>view</th>
+                                <th>edit</th>
+                                <th>delete</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr>
+                                <td>name</td>
+                                <td><a href="../family_view/family_view.html">view</a></td>
+                                <td>
+                                    <button class="ui-button ui-control">delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tr>
+                            <td><a href="../family_add/family_add.html">add new family</a></td>
+                        </tr>
+                    </table>
+                </article>
+
+            </section>
+
+            <footer class="footer">
+                <p>I freakin love mushrooms</p>
+            </footer>
+        </div>
+    </body>
+</html>
