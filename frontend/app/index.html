@@ -5,7 +5,7 @@
         <meta name="description" content="Just a web application about mushrooms."/>
         <title>Mushrooms - my love</title>
         <link rel="stylesheet" href="styles.css"/>
-        <script src="script.js" async="async"></script>
+        <script type="module" src="script.js" defer="defer"></script>
     </head>
     <body>
         <div class="container">
@@ -13,16 +13,43 @@
                 <h1>Mushrooms - my love</h1>
             </header>
 
-            <nav class="navigation-bar">
-                <ul>
-                    <li><a href="index.html">main</a></li>
-                    <li><a href="family_list/family_list.html">mushroom families</a></li>
-					<li><a href="species_list/species_list.html">mushroom species</a></li>
-                </ul>
-            </nav>
-
             <section class="main-section">
-
+                <div id="send-image">
+                    <p><b>Upload image</b></p>
+                    <form id="send-image-form" enctype="multipart/form-data">
+                        <input type="file" id="file" name="file">
+                        <input type="text" id="author" name="author" placeholder="Enter a picture author">
+                        <input type="text" id="description" name="description" placeholder="Enter a file description">
+                        <button type="submit">Upload</button>
+                    </form>
+                </div>
+                <div id="download-image">
+                    <p><b>Download image</b></p>
+                    <form id="download-image-form">
+                        <input type="text" id="image-id" name="image-id" placeholder="Enter a picture ID">
+                        <button type="submit">Download</button>
+                    </form>
+                </div>
+                <div>
+                    <p><b>Image gallery</b></p>
+                    <a href="#" id="show-gallery-link">Show gallery</a>
+                </div>
+                <div id="gallery-div"></div>
+                <!-- <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 mx-auto">
+                            <h2>Upload Image Example</h2>
+                            <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
+                            <form method="post" th:action="@{http:127.0.0.1/api/gallery/upload}" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <input type="file" name="image" accept="image/*" class="form-control-file">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Upload image</button>
+                            </form>
+                            <span th:if="${msg != null}" th:text="${msg}"></span>
+                        </div>
+                    </div>
+                </div> -->
             </section>
 
             <footer class="footer">

@@ -1,7 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const app = express(),
       bodyParser = require("body-parser");
-      port = 8080;
+      port = process.env.FRONTEND_PORT;
 
 const users = [];
 

@@ -1,54 +1,59 @@
 version: '3.9'
 
 services:
-  gateway:
+  database:
+    image: mariadb
+    container_name: database
+    environment:
+      MARIADB_ROOT_PASSWORD: toor
+    volumes:
+      - ./database:/var/lib/mysql
+      - ./initdb:/docker-entrypoint-initdb.d
+  backend:
     build:
-      context: backend/gateway
+      context: backend
       dockerfile: Dockerfile
-    env_file:
-      - .env
+    volumes:
+      - ./uploaded:/uploaded
     depends_on:
-      families:
-        condition: service_healthy
-  species:
+      - database
+    environment:
+      - BACKEND_PORT=8083
+  backend2:
     build:
-      context: backend/species
+      context: backend
       dockerfile: Dockerfile
-    env_file:
-      - .env
-    healthcheck: &healthcheck
-      test: "curl --fail --silent localhost:8082/actuator/health | grep UP || exit 1"
-      interval: 5s
-      timeout: 5s
-      retries: 5
-      start_period: 40s
-
-  families:
-    build:
-      context: backend/family
-      dockerfile: Dockerfile
-    env_file:
-      - .env
-    healthcheck:
-      <<: *healthcheck
-      test: "curl --fail --silent localhost:8081/actuator/health | grep UP || exit 1"
+    volumes:
+      - ./uploaded:/uploaded
     depends_on:
-      species:
-        condition: service_healthy
-  reverse_proxy:
-    build:
-      context: .
-      dockerfile: ./reverse_proxy/Dockerfile
-    env_file:
-      - .env
-    ports:
-      - "80:80"
-    depends_on:
-      gateway:
-        condition: service_started
+      - database
+    environment:
+      - BACKEND_PORT=8084
   frontend:
     build:
       context: frontend
       dockerfile: Dockerfile
-    env_file:
-      - .env
+    environment:
+      - FRONTEND_PORT=2137
+    ports:
+      - "2137:2137"
+  frontend2:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    environment:
+      - FRONTEND_PORT=2138
+    ports:
+      - "2138:2138"
+  load_balancer:
+    build:
+      context: load_balancer
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+  internal_load_balancer:
+    build:
+      context: internal_load_balancer
+      dockerfile: Dockerfile
+    ports:
+      - "420:420"
