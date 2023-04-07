@@ -24,6 +24,9 @@ public class GatewayApplication {
 	@Value("${species.uri}")
 	private String speciesUri;
 
+	@Value("${pictures.uri}")
+	private String picturesUri;
+
 	public static void main(String[] args) {
 		SpringApplication.run(GatewayApplication.class, args);
 	}
@@ -42,6 +45,11 @@ public class GatewayApplication {
 						.and()
 						.path("/api/species", "/api/species/**", "/api/families/{name}/species", "/api/families/{name}/species/**")
 						.uri(speciesUri))
+				.route("pictures", r -> r
+						.host(hostId)
+						.and()
+						.path("/api/pictures/upload", "/api/pictures/upload/**", "/api/pictures/download", "/api/pictures/download/**")
+						.uri(picturesUri))
 				.build();
 	}
 
